@@ -5,6 +5,15 @@ import type {
   User as PrismaUser,
 } from "@repo/db";
 
+export interface PaginatedResult<T> {
+  items: T[];
+  meta: {
+    limit: number;
+    page: number;
+    total: number;
+  };
+}
+
 export interface Post extends PrismaPost {
   author?: User;
 }

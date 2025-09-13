@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
+import { Prisma } from '@repo/db';
 import slugify from 'slugify';
 
 import { PrismaService } from '~/database';
+import { cleanObject } from '~/lib/utils';
 
-import { CreateTranslationDto, UpdateTranslationDto } from './translations.dto';
+import {
+  CreateTranslationDto,
+  TranslationQueryDto,
+  UpdateTranslationDto,
+} from './translations.dto';
 
 @Injectable()
 export class TranslationsService {
@@ -27,10 +33,34 @@ export class TranslationsService {
     return translation;
   }
 
-  async findAll() {
-    const translations = await this.prisma.postTranslation.findMany();
+  async findAll(query: TranslationQueryDto) {
+    const { locale, postId, ...rest } = query;
 
-    return translations;
+    const args = this.prisma.buildQueryOptions(rest, [
+      'title',
+      'content',
+    ]) as Prisma.PostTranslationFindManyArgs;
+
+    args.where = {
+      ...args.where,
+      ...cleanObject({ locale, postId }),
+    };
+
+    const translations = await this.prisma.postTranslation.findMany({
+      ...args,
+      include: {
+        post: { include: { author: { include: { profile: true } } } },
+      },
+    });
+
+    return {
+      items: translations,
+      meta: {
+        limit: rest.limit,
+        page: rest.page,
+        total: await this.prisma.postTranslation.count({ where: args.where }),
+      },
+    };
   }
 
   async findOne(id: string) {

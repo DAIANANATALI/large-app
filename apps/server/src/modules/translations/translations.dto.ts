@@ -1,6 +1,8 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { IsOptional, IsString } from 'class-validator';
 
+import { BaseQueryDto } from '~/database';
+
 export class CreateTranslationDto {
   @IsString()
   content: string;
@@ -23,7 +25,7 @@ export class CreateTranslationDto {
   title: string;
 }
 
-export class TranslationQueryDto {
+export class TranslationQueryDto extends BaseQueryDto {
   @IsOptional()
   @IsString()
   locale?: string;

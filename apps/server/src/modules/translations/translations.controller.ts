@@ -6,12 +6,17 @@ import {
   Param,
   Patch,
   Post,
+  Query,
   UseGuards,
 } from '@nestjs/common';
 
 import { AuthGuard, PostAuthorshipGuard } from '~/common/guards';
 
-import { CreateTranslationDto, UpdateTranslationDto } from './translations.dto';
+import {
+  CreateTranslationDto,
+  TranslationQueryDto,
+  UpdateTranslationDto,
+} from './translations.dto';
 import { TranslationsService } from './translations.service';
 
 @Controller('translations')
@@ -25,8 +30,8 @@ export class TranslationsController {
   }
 
   @Get()
-  findAll() {
-    return this.translationsService.findAll();
+  findAll(@Query() query: TranslationQueryDto) {
+    return this.translationsService.findAll(query);
   }
 
   @Get(':id')

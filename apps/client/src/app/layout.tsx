@@ -48,9 +48,10 @@ function LoadingIndicator() {
   return (
     <Progress
       className="fixed top-0 left-0 z-50 w-full"
-      color="primary"
+      color="secondary"
       isIndeterminate
       radius="none"
+      size="sm"
     />
   );
 }

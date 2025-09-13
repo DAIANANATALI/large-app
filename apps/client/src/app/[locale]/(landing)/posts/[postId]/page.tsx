@@ -1,9 +1,11 @@
+import type { PaginatedResult, PostTranslation } from "types";
+
 import { addToast, Button, Chip, Divider, Spacer, User } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Markdown from "react-markdown";
 import { useParams } from "react-router";
 
-import { prisma } from "~/lib/db";
+import { api } from "~/lib/api";
 import { useBooksmarksStore } from "~/store/booksmarks-store";
 import generateSeoMeta from "~/utils/seo";
 
@@ -12,14 +14,19 @@ import type { Route } from "./+types/page";
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { locale, postId } = params;
 
-  const translation = await prisma.postTranslation.findFirst({
-    include: { post: { include: { author: { include: { profile: true } } } } },
-    where: { locale, postId },
+  const { data: translations } = await api.get<
+    PaginatedResult<PostTranslation>
+  >("/translations", {
+    params: {
+      include: "post,post.author,post.author.profile",
+      locale,
+      postId,
+    },
   });
 
   return {
-    post: translation?.post,
-    translation: translation,
+    post: translations.items[0].post || null,
+    translation: translations.items[0] || null,
   };
 };
 
