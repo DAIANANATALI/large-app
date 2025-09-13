@@ -1,0 +1,24 @@
+{
+  "name": "large",
+  "version": "1.0.0",
+  "description": "A place for your big ideas",
+  "private": true,
+  "scripts": {
+    "start": "dotenvx run -- turbo start",
+    "build": "dotenvx run -- turbo run build",
+    "dev": "dotenvx run -- turbo run dev",
+    "db:push": "dotenvx run -- turbo run db:push",
+    "lint": "turbo run lint",
+    "format": "turbo run format",
+    "check-types": "turbo run check-types"
+  },
+  "devDependencies": {
+    "@dotenvx/dotenvx": "^1.49.0",
+    "turbo": "^2.5.6",
+    "typescript": "5.9.2"
+  },
+  "packageManager": "pnpm@10.15.1",
+  "engines": {
+    "node": ">=24.0.0"
+  }
+}
