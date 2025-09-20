@@ -3,10 +3,12 @@
   "version": "1.0.0",
   "private": "true",
   "packageManager": "pnpm@10.15.1",
-  "types": "src/index.ts",
-  "main": "src/index.ts",
+  "types": "dist/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "scripts": {
-    "build": "tsc -b",
+    "build": "tsup",
+    "build:watch": "tsup --watch",
     "db:generate": "prisma generate",
     "db:push": "prisma db push"
   },
@@ -15,6 +17,7 @@
     "@types/node": "^24.3.1",
     "eslint": "^9.35.0",
     "prisma": "^6.16.1",
+    "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {
