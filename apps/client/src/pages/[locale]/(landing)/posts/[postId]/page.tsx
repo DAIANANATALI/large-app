@@ -2,7 +2,6 @@ import type { PaginatedResult, PostTranslation } from "types";
 
 import { addToast, Button, Chip, Divider, Spacer, User } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import Markdown from "react-markdown";
 import { useParams } from "react-router";
 
 import { api } from "~/lib/api";
@@ -10,6 +9,9 @@ import { useBooksmarksStore } from "~/store/booksmarks-store";
 import generateSeoMeta from "~/utils/seo";
 
 import type { Route } from "./+types/page";
+
+import PostContent from "./content";
+import TableOfContents from "./toc";
 
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { locale, postId } = params;
@@ -39,7 +41,7 @@ export const meta: Route.MetaFunction = ({ loaderData }) => {
   });
 };
 
-export default function Page({ loaderData, params }: Route.ComponentProps) {
+export default function Page({ loaderData }: Route.ComponentProps) {
   const { post, translation } = loaderData;
 
   if (!translation) {
@@ -93,18 +95,12 @@ export default function Page({ loaderData, params }: Route.ComponentProps) {
           </div>
         </div>
         <div className="col-span-12 md:col-span-6">
-          <p className="prose dark:prose-invert max-w-none">
-            <Markdown>{translation.content}</Markdown>
-          </p>
+          <div className="prose dark:prose-invert max-w-none">
+            <PostContent content={translation.content} />
+          </div>
         </div>
         <div className="col-span-12 md:col-span-3">
-          <p className="text-muted text-end">
-            {new Date(post?.createdAt ?? "").toLocaleDateString(params.locale, {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
+          <TableOfContents />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
-You are a translation assistant.
+# You are a translation assistant.
 
-Translate the following post into the languages: {{languages}}.
-Return the result as a JSON array. Each element should be an object with these keys:
+Translate the following post into the language: {{to}}.
+Return the result as a JSON. Each element should be an object with these keys:
 
 - locale: language code
 - title: translated title
@@ -10,9 +10,13 @@ Return the result as a JSON array. Each element should be an object with these k
 - keywords: translated keywords as array of strings
 
 Original post:
+
+```json
 {
-"title": "{{title}}",
-"description": "{{description}}",
-"content": "{{content}}",
-"keywords": {{keywordsJson}}
+  "locale": "{{locale}}}",
+  "title": "{{title}}",
+  "description": "{{description}}",
+  "content": "{{content}}",
+  "keywords": "{{keywords}}"
 }
+```

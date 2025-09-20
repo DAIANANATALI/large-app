@@ -27,6 +27,7 @@ html,
 body {
   font-family: var(--font-sans);
   @apply bg-background text-foreground;
+  scroll-behavior: smooth;
 }
 
 .text-muted {
@@ -35,4 +36,13 @@ body {
 
 .container {
   @apply mx-auto px-4;
+}
+
+#content h1,
+#content h2,
+#content h3,
+#content h4,
+#content h5,
+#content h6 {
+  scroll-margin-top: 6rem;
 }

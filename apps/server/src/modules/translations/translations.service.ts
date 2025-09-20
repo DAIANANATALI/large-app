@@ -107,8 +107,8 @@ export class TranslationsService {
 
     const createdTranslations: PostTranslation[] = [];
     for (const result of results) {
-      const created = await this.prisma.postTranslation.create({
-        data: {
+      const created = await this.prisma.postTranslation.upsert({
+        create: {
           content: result.content,
           description: result.description,
           keywords: result.keywords,
@@ -120,6 +120,19 @@ export class TranslationsService {
           },
           slug: this.makeSlug(result.title),
           title: result.title,
+        },
+        update: {
+          content: result.content,
+          description: result.description,
+          keywords: result.keywords,
+          slug: this.makeSlug(result.title),
+          title: result.title,
+        },
+        where: {
+          postId_locale: {
+            locale: result.locale,
+            postId: translation.postId,
+          },
         },
       });
       createdTranslations.push(created);
