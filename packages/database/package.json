@@ -7,8 +7,6 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "scripts": {
-    "build": "tsup",
-    "build:watch": "tsup --watch",
     "db:generate": "prisma generate",
     "db:push": "prisma db push"
   },
@@ -17,7 +15,6 @@
     "@types/node": "^24.3.1",
     "eslint": "^9.35.0",
     "prisma": "^6.16.1",
-    "tsup": "^8.5.0",
     "typescript": "^5.9.2"
   },
   "dependencies": {

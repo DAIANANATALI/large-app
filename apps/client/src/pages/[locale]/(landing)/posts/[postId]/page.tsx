@@ -1,4 +1,4 @@
-import type { PaginatedResult, PostTranslation } from "types";
+import type { PaginatedResult, PostTranslation } from "~/types";
 
 import { addToast, Button, Chip, Divider, Spacer, User } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";

@@ -1,5 +1,3 @@
-import type { Post } from "types";
-
 import {
   addToast,
   Button,
@@ -11,15 +9,17 @@ import {
   SelectItem,
   Textarea,
 } from "@heroui/react";
-import { type PostTranslation } from "@repo/db";
 import { getLocaleName } from "intlayer";
 import React from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
 import { useLoaderData } from "react-router";
 import useSWR from "swr";
 
+import type { Post } from "~/types";
+
 import useLocaleNavigate from "~/hooks/useLocaleNavigate";
 import { api, resolveApiError } from "~/lib/api";
+import { type PostTranslation } from "~/types";
 
 import type { Route } from "./+types/page";
 

@@ -1,4 +1,4 @@
-import type { PaginatedResult, PostTranslation } from "types";
+import type { PaginatedResult, PostTranslation } from "~/types";
 
 import {
   Card,

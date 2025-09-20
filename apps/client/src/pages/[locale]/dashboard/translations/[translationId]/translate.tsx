@@ -1,5 +1,3 @@
-import type { PostTranslation } from "@repo/db";
-
 import {
   addToast,
   Button,
@@ -15,6 +13,8 @@ import {
 } from "@heroui/react";
 import { useState } from "react";
 import { useIntlayer, useLocale } from "react-intlayer";
+
+import type { PostTranslation } from "~/types";
 
 import useLocaleNavigate from "~/hooks/useLocaleNavigate";
 import { api, resolveApiError } from "~/lib/api";
