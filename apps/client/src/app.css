@@ -4,8 +4,8 @@
 
 :root {
   --font-sans: "Roboto", sans-serif;
-  --background: hsl(0, 0%, 95%);
-  --foreground: hsl(0, 0%, 0%);
+  --background: oklch(92.2% 0 0);
+  --foreground: oklch(22.21% 0 0);
   --text-muted: hsl(0, 0%, 40%);
   --heroui-primary: 0 0% 90%;
   --heroui-primary-foreground: 0 0% 20%;
@@ -14,8 +14,8 @@
 }
 
 .dark {
-  --background: hsl(0, 0%, 15%);
-  --foreground: hsl(0, 0%, 100%);
+  --background: oklch(22.21% 0 0);
+  --foreground: oklch(92.2% 0 0);
   --text-muted: hsl(0, 0%, 60%);
   --heroui-primary: 220 90% 66%;
   --heroui-primary-foreground: 0 0% 100%;
@@ -26,7 +26,6 @@
 html,
 body {
   font-family: var(--font-sans);
-  @apply bg-background text-foreground;
   scroll-behavior: smooth;
 }
 

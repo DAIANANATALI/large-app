@@ -11,9 +11,9 @@ export function SidebarToggler({ className }: { className?: string }) {
       className={className}
       isIconOnly
       onPress={toggleSidebar}
-      variant="ghost"
+      variant="light"
     >
-      <Icon className="h-5 w-5" icon="mdi:menu" />
+      <Icon className="size-5" icon="mdi:dock-left" />
     </Button>
   );
 }

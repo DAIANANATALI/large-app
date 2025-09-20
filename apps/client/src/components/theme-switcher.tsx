@@ -18,7 +18,7 @@ export default function ThemeSwitcher() {
           aria-label="Change Theme"
           className="rounded-full"
           isIconOnly
-          variant="bordered"
+          variant="light"
         >
           <Icon className="size-4" icon={getThemeIcon(theme ?? "system")} />
         </Button>

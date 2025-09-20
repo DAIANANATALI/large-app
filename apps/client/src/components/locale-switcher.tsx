@@ -29,7 +29,7 @@ export default function LocaleSwitcher() {
           aria-label="Change Language"
           className="rounded-full"
           isIconOnly
-          variant="bordered"
+          variant="light"
         >
           <Icon
             className="size-4"
