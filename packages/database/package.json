@@ -3,10 +3,8 @@
   "version": "1.0.0",
   "private": "true",
   "packageManager": "pnpm@10.15.1",
-  "type": "module",
   "types": "src/index.ts",
   "main": "src/index.ts",
-  "module": "src/index.ts",
   "scripts": {
     "build": "tsc -b",
     "db:generate": "prisma generate",
