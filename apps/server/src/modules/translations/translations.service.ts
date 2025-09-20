@@ -1,10 +1,11 @@
-import { Injectable } from '@nestjs/common';
-import { Prisma } from '@repo/db';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { PostTranslation, Prisma } from '@repo/db';
 import slugify from 'slugify';
 
 import { PrismaService } from '~/database';
 import { cleanObject } from '~/lib/utils';
 
+import { AiService } from './ai.service';
 import {
   CreateTranslationDto,
   TranslationQueryDto,
@@ -13,7 +14,10 @@ import {
 
 @Injectable()
 export class TranslationsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private aiService: AiService,
+  ) {}
 
   async create(createTranslationDto: CreateTranslationDto) {
     const { postId, ...rest } = createTranslationDto;
@@ -71,6 +75,10 @@ export class TranslationsService {
       },
     });
 
+    if (!translation) {
+      throw new NotFoundException('Translation not found');
+    }
+
     return translation;
   }
 
@@ -90,6 +98,34 @@ export class TranslationsService {
     });
 
     return { deleted: true };
+  }
+
+  async translate(id: string, to: string[]) {
+    const translation = await this.findOne(id);
+
+    const results = await this.aiService.generateTranslation(translation, to);
+
+    const createdTranslations: PostTranslation[] = [];
+    for (const result of results) {
+      const created = await this.prisma.postTranslation.create({
+        data: {
+          content: result.content,
+          description: result.description,
+          keywords: result.keywords,
+          locale: result.locale,
+          post: {
+            connect: {
+              id: translation.postId,
+            },
+          },
+          slug: this.makeSlug(result.title),
+          title: result.title,
+        },
+      });
+      createdTranslations.push(created);
+    }
+
+    return createdTranslations;
   }
 
   async update(id: string, updateTranslationDto: UpdateTranslationDto) {

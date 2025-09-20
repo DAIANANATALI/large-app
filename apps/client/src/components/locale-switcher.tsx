@@ -6,14 +6,11 @@ import {
   DropdownTrigger,
 } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import {
-  getHTMLTextDir,
-  getLocaleLang,
-  getLocaleName,
-  getLocalizedUrl,
-} from "intlayer";
+import { getHTMLTextDir, getLocaleName, getLocalizedUrl } from "intlayer";
 import { useLocale } from "react-intlayer";
 import { useLocation } from "react-router";
+
+import getLocaleFlag from "~/utils/get-locale-flag";
 
 export default function LocaleSwitcher() {
   const { pathname } = useLocation();
@@ -34,15 +31,18 @@ export default function LocaleSwitcher() {
           isIconOnly
           variant="bordered"
         >
-          <Icon className="h-4 w-4" icon="mdi:globe" />
+          <Icon
+            className="size-4"
+            icon={locale ? getLocaleFlag(locale) : "mdi:globe"}
+          />
         </Button>
       </DropdownTrigger>
       <DropdownMenu disabledKeys={[locale]}>
         {availableLocales.map((loc) => (
           <DropdownItem
-            description={getLocaleLang(loc)}
+            description={getLocaleName(loc, locale)}
             dir={getHTMLTextDir(loc)}
-            endContent={getLocaleLang(loc)}
+            endContent={<Icon className="size-8" icon={getLocaleFlag(loc)} />}
             key={loc}
             onPress={() => setLocale(loc)}
           >

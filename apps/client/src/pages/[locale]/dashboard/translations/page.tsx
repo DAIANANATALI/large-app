@@ -1,4 +1,4 @@
-import type { PostTranslation } from "types";
+import type { PaginatedResult, PostTranslation } from "types";
 
 import {
   Card,
@@ -15,10 +15,11 @@ import { useLoaderData } from "react-router";
 import Header from "~/components/header";
 import LocaleLink from "~/components/locale-link";
 import { api } from "~/lib/api";
+import getLocaleFlag from "~/utils/get-locale-flag";
 
 export const clientLoader = async () => {
   const { data: translations } =
-    await api.get<PostTranslation[]>("/translations");
+    await api.get<PaginatedResult<PostTranslation>>("/translations");
 
   return {
     translations,
@@ -33,11 +34,11 @@ export default function Page() {
     <div className="grid gap-6">
       <Header {...content} createUrl="/dashboard/translations/create" />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {translations.map((post) => (
+        {translations.items.map((post) => (
           <TranslationCard key={post.id} {...post} />
         ))}
       </div>
-      {translations.length === 0 && (
+      {translations.items.length === 0 && (
         <p className="text-muted text-center">{content.noData}</p>
       )}
       <div className="flex justify-center">
@@ -53,9 +54,7 @@ function TranslationCard(props: PostTranslation) {
   return (
     <Card>
       <CardHeader className="justify-center">
-        <div className="bg-success/20 rounded-full p-3">
-          <Icon className="h-20 w-20" icon="mdi:translate" />
-        </div>
+        <Icon className="size-20" icon={getLocaleFlag(props.locale)} />
       </CardHeader>
       <CardBody>
         <Chip className="mb-2" color="primary">

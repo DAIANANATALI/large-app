@@ -20,7 +20,7 @@ export default function ThemeSwitcher() {
           isIconOnly
           variant="bordered"
         >
-          <Icon icon={getThemeIcon(theme ?? "system")} />
+          <Icon className="size-4" icon={getThemeIcon(theme ?? "system")} />
         </Button>
       </DropdownTrigger>
       <DropdownMenu disabledKeys={[theme ?? ""]}>

@@ -23,6 +23,8 @@ import { api, resolveApiError } from "~/lib/api";
 
 import type { Route } from "./+types/page";
 
+import TranslationModal from "./translate";
+
 export const clientLoader = async ({ params }: Route.ClientLoaderArgs) => {
   const { translationId } = params;
 
@@ -102,10 +104,11 @@ export default function Page() {
             </p>
           </div>
           {translation && (
-            <div>
+            <div className="flex gap-2">
               <Button color="danger" onPress={onDelete}>
                 {content.onDelete.label}
               </Button>
+              <TranslationModal translation={translation} />
             </div>
           )}
         </CardHeader>
