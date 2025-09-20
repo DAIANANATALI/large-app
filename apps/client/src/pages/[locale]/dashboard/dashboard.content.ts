@@ -20,6 +20,10 @@ export default {
         tr: "Çeviriler",
       }),
     },
+    search: t({
+      en: "Search...",
+      tr: "Ara...",
+    }),
   },
   key: "dashboard",
 } satisfies Dictionary;

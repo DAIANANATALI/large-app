@@ -2,12 +2,13 @@ import { HeroUIProvider, Progress, ToastProvider } from "@heroui/react";
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { motion } from "framer-motion";
 import { ThemeProvider } from "next-themes";
-import { Outlet, useNavigation } from "react-router";
+import { type MetaFunction, Outlet, useNavigation } from "react-router";
 import { SWRConfig } from "swr";
 
 import useLocaleNavigate from "~/hooks/useLocaleNavigate";
 import { fetcher } from "~/lib/api";
 import { composeProviders } from "~/utils/compose-providers";
+import generateSeoMeta from "~/utils/seo";
 
 const Providers = composeProviders(
   ({ children }) => <ThemeProvider attribute="class">{children}</ThemeProvider>,
@@ -22,6 +23,14 @@ const Providers = composeProviders(
   ),
   ({ children }) => <SWRConfig value={{ fetcher }}>{children}</SWRConfig>
 );
+
+export const meta: MetaFunction = () => {
+  return generateSeoMeta({
+    description: "A blog application built with a monorepo architecture",
+    keywords: ["blog", "monorepo", "react", "typescript", "prisma", "tailwind"],
+    title: "Large App",
+  });
+};
 
 export default function RootLayout() {
   return (

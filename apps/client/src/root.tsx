@@ -15,6 +15,7 @@ export function Layout({ children }: React.PropsWithChildren) {
       <head>
         <meta charSet="utf-8" />
         <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <link href="/logo.png" rel="shortcut icon" type="image/x-icon" />
         <Meta />
         <Links />
       </head>

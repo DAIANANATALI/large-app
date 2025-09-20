@@ -9,7 +9,8 @@ import {
   User,
 } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { type IntlayerNode, useIntlayer } from "react-intlayer";
+import { useState } from "react";
+import { useIntlayer } from "react-intlayer";
 
 import LocaleLink from "~/components/locale-link";
 import Logo from "~/components/logo";
@@ -21,29 +22,30 @@ import { useSidebarStore } from "~/store/sidebar-store";
 interface SidebarItem {
   href: string;
   icon: string;
-  label: IntlayerNode;
+  label: string;
 }
 
 export default function Sidebar() {
   const isSidebarOpen = useSidebarStore((s) => s.isSidebarOpen);
   const content = useIntlayer("dashboard");
   const { user } = useAuth();
+  const [filterText, setFilterText] = useState("");
 
   const menuItems: SidebarItem[] = [
     {
       href: "/dashboard",
       icon: "mdi:view-dashboard-outline",
-      label: content.items.dashboard,
+      label: content.items.dashboard.value,
     },
     {
       href: "/dashboard/posts",
       icon: "mdi:file-document-outline",
-      label: content.items.posts,
+      label: content.items.posts.value,
     },
     {
       href: "/dashboard/translations",
       icon: "mdi:translate",
-      label: content.items.translations,
+      label: content.items.translations.value,
     },
   ];
 
@@ -67,13 +69,22 @@ export default function Sidebar() {
       <CardBody>
         <Input
           className="mb-2"
-          placeholder="Search..."
+          onValueChange={setFilterText}
+          placeholder={content.search.value}
           startContent={<Icon className="size-4" icon="mdi:magnify" />}
+          value={filterText}
         />
         <div className="grid gap-1">
-          {menuItems.map((item, i) => (
-            <SidebarItem key={i} {...item} />
-          ))}
+          {menuItems
+            .filter((item) =>
+              item.label
+                .toString()
+                .toLowerCase()
+                .includes(filterText.toLowerCase())
+            )
+            .map((item, i) => (
+              <SidebarItem key={i} {...item} />
+            ))}
         </div>
       </CardBody>
       <CardFooter className="justify-between">

@@ -1,8 +1,8 @@
-import type { PaginatedResult, PostTranslation } from "~/types";
-
 import { addToast, Button, Chip, Divider, Spacer, User } from "@heroui/react";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { useParams } from "react-router";
+
+import type { PaginatedResult, PostTranslation } from "~/types";
 
 import { api } from "~/lib/api";
 import { useBooksmarksStore } from "~/store/booksmarks-store";
@@ -48,8 +48,6 @@ export default function Page({ loaderData }: Route.ComponentProps) {
     return <div>Translation not found</div>;
   }
 
-  const randomNumber = () => Math.floor(Math.random() * 1000);
-
   return (
     <div className="container my-10">
       <div className="grid grid-cols-12 gap-6">
@@ -70,7 +68,7 @@ export default function Page({ loaderData }: Route.ComponentProps) {
           <div className="flex items-center gap-2">
             <User
               avatarProps={{
-                src: "https://i.pravatar.cc/150?u=" + randomNumber(),
+                name: post?.author?.profile?.displayName || "",
               }}
               description={post?.author?.username}
               name={post?.author?.profile?.displayName}
