@@ -18,11 +18,5 @@ export default function LocaleLink(props: LocaleLinkProps) {
     return <Link {...props} />;
   }
 
-  return (
-    <Link
-      className="inline-flex items-center gap-1 font-medium transition-colors hover:underline"
-      to={getLocalizedUrl(to.toString(), locale)}
-      {...rest}
-    />
-  );
+  return <Link to={getLocalizedUrl(to, locale)} {...rest} />;
 }
