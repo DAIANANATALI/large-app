@@ -12,6 +12,10 @@ export default {
       en: "Failed to login. Please try again.",
       tr: "Giriş yapılamadı. Lütfen tekrar deneyin.",
     }),
+    forgotPassword: t({
+      en: "Forgot Password?",
+      tr: "Parolamı Unuttum?",
+    }),
     inputs: {
       email: t({
         en: "Email",

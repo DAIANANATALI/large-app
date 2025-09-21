@@ -39,9 +39,6 @@ export class PostAuthorshipGuard implements CanActivate {
     return false;
   }
 
-  /**
-   * @TODO make it compitable with translation routes as well
-   */
   extractPostId(req: Request) {
     if (req.params && req.params.id && req.url.startsWith('/posts'))
       return req.params.id;

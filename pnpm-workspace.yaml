@@ -3,12 +3,13 @@ packages:
   - packages/*
 
 onlyBuiltDependencies:
-  - "@heroui/shared-utils"
-  - "@nestjs/core"
-  - "@prisma/client"
-  - "@prisma/engines"
-  - "@swc/core"
-  - "@tailwindcss/oxide"
+  - '@heroui/shared-utils'
+  - '@nestjs/core'
+  - '@prisma/client'
+  - '@prisma/engines'
+  - '@swc/core'
+  - '@tailwindcss/oxide'
   - argon2
   - esbuild
   - prisma
+  - sharp

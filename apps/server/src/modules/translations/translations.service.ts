@@ -38,7 +38,7 @@ export class TranslationsService {
   }
 
   async findAll(query: TranslationQueryDto) {
-    const { locale, postId, ...rest } = query;
+    const { authorId, locale, postId, ...rest } = query;
 
     const args = this.prisma.buildQueryOptions(rest, [
       'title',
@@ -47,7 +47,7 @@ export class TranslationsService {
 
     args.where = {
       ...args.where,
-      ...cleanObject({ locale, postId }),
+      ...cleanObject({ authorId, locale, postId }),
     };
 
     const translations = await this.prisma.postTranslation.findMany({

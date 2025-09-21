@@ -47,12 +47,17 @@ export default function Sidebar() {
       icon: "mdi:translate",
       label: content.items.translations.value,
     },
+    {
+      href: "/dashboard/account",
+      icon: "mdi:account-cog-outline",
+      label: content.items.account.value,
+    },
   ];
 
   return (
     <Card
       as={"aside"}
-      className={cn(isSidebarOpen ? "w-72" : "w-0")}
+      className={cn(isSidebarOpen ? "w-72" : "w-0", "transition-all")}
       radius="none"
       shadow="none"
     >
@@ -73,6 +78,7 @@ export default function Sidebar() {
           placeholder={content.search.value}
           startContent={<Icon className="size-4" icon="mdi:magnify" />}
           value={filterText}
+          variant="faded"
         />
         <div className="grid gap-1">
           {menuItems
@@ -91,6 +97,7 @@ export default function Sidebar() {
         <User
           avatarProps={{
             name: user?.profile?.displayName,
+            src: user?.profile?.avatarUrl || undefined,
           }}
           description={user?.username}
           name={user?.profile?.displayName}

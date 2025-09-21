@@ -7,12 +7,16 @@ import { Prisma } from '@repo/db';
 import argon2 from 'argon2';
 
 import { PrismaService } from '~/database';
+import { ResendService } from '~/resend';
 
 import { CreateUserDto, UpdateUserDto } from './users.dto';
 
 @Injectable()
 export class UsersService {
-  constructor(private prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private resendService: ResendService,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const uniqueFields = [
@@ -52,6 +56,15 @@ export class UsersService {
           },
         },
       },
+    });
+
+    await this.resendService.sendEmail({
+      from: this.resendService.from,
+      subject: 'Welcome to Large App!',
+      template: 'welcome',
+      templateData: { name: displayName },
+      text: '',
+      to: user.email,
     });
 
     return user;

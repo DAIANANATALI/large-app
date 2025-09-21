@@ -1,9 +1,11 @@
-import type { User } from "~/types";
-
 import useSWR from "swr";
 
-export default function useAuth() {
-  const { data: user } = useSWR<User>("/users/me");
+import type { User } from "~/types";
 
-  return { isAuthenticated: Boolean(user), user };
+export default function useAuth() {
+  const { data: user, isLoading } = useSWR<User>("/users/me");
+
+  if (user) localStorage.setItem("userId", user.id);
+
+  return { isAuthenticated: Boolean(user), isLoading, user };
 }

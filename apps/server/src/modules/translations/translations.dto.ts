@@ -28,6 +28,10 @@ export class CreateTranslationDto {
 export class TranslationQueryDto extends BaseQueryDto {
   @IsOptional()
   @IsString()
+  authorId?: string;
+
+  @IsOptional()
+  @IsString()
   locale?: string;
 
   @IsOptional()

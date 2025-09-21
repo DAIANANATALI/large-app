@@ -5,35 +5,37 @@ import {
   CardBody,
   CardHeader,
   Divider,
-  Input,
   Spacer,
 } from "@heroui/react";
 import { useIntlayer } from "react-intlayer";
+import { useSearchParams } from "react-router";
 
-import { GoogleButton } from "~/components/google-button";
 import LocaleLink from "~/components/locale-link";
 import PasswordInput from "~/components/password-input";
+import useLocaleNavigate from "~/hooks/useLocaleNavigate";
 import { api, resolveApiError } from "~/lib/api";
 
-export default function Login() {
-  const content = useIntlayer("login-page");
+export default function ResetPassword() {
+  const content = useIntlayer("auth.reset-password");
+  const navigate = useLocaleNavigate();
+  const [searchParams] = useSearchParams();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
+    data.token = searchParams.get("token") || "";
 
     try {
-      const { data: res } = await api.post("/auth/login", data);
-      localStorage.setItem("token", res.token);
-      addToast({ color: "success", title: content.success });
-      location.href = "/";
+      await api.post("/password-reset/confirm", data);
+      addToast({ color: "success", title: content.toasts.success });
+      navigate("/");
     } catch (error) {
       console.error(error);
       addToast({
         color: "danger",
         description: resolveApiError(error).message,
-        title: content.error,
+        title: content.toasts.error,
       });
     }
   };
@@ -47,35 +49,24 @@ export default function Login() {
         </CardHeader>
         <CardBody className="grid gap-5">
           <form className="grid gap-3" onSubmit={onSubmit}>
-            <Input
-              isRequired
-              label={content.inputs.email}
-              name="email"
-              type="email"
-            />
             <PasswordInput
               isRequired
               label={content.inputs.password}
-              name="password"
+              name="newPassword"
             />
-            <div className="flex justify-end">
-              <LocaleLink to="/forgot-password">
-                {content.forgotPassword}
-              </LocaleLink>
-            </div>
+            <PasswordInput
+              isRequired
+              label={content.inputs.confirmPassword}
+              name="confirmPassword"
+            />
             <Spacer />
             <Button color="secondary" type="submit">
               {content.inputs.submit}
             </Button>
           </form>
           <Divider />
-          <GoogleButton />
-          <Divider />
           <div className="flex flex-col items-center gap-2 text-center">
-            <p className="text-muted text-center text-sm">
-              {content.dontHaveAccount}
-            </p>
-            <LocaleLink to="/register">{content.register}</LocaleLink>
+            <LocaleLink to="/register">{content.back}</LocaleLink>
           </div>
         </CardBody>
       </Card>

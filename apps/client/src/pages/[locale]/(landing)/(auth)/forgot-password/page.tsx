@@ -10,13 +10,13 @@ import {
 } from "@heroui/react";
 import { useIntlayer } from "react-intlayer";
 
-import { GoogleButton } from "~/components/google-button";
 import LocaleLink from "~/components/locale-link";
-import PasswordInput from "~/components/password-input";
+import useLocaleNavigate from "~/hooks/useLocaleNavigate";
 import { api, resolveApiError } from "~/lib/api";
 
-export default function Login() {
-  const content = useIntlayer("login-page");
+export default function ForgotPassword() {
+  const content = useIntlayer("auth.forgot-password");
+  const navigate = useLocaleNavigate();
 
   const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,16 +24,15 @@ export default function Login() {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const { data: res } = await api.post("/auth/login", data);
-      localStorage.setItem("token", res.token);
-      addToast({ color: "success", title: content.success });
-      location.href = "/";
+      await api.post("/password-reset/request", data);
+      addToast({ color: "success", title: content.toasts.success });
+      navigate("/");
     } catch (error) {
       console.error(error);
       addToast({
         color: "danger",
         description: resolveApiError(error).message,
-        title: content.error,
+        title: content.toasts.error,
       });
     }
   };
@@ -53,29 +52,14 @@ export default function Login() {
               name="email"
               type="email"
             />
-            <PasswordInput
-              isRequired
-              label={content.inputs.password}
-              name="password"
-            />
-            <div className="flex justify-end">
-              <LocaleLink to="/forgot-password">
-                {content.forgotPassword}
-              </LocaleLink>
-            </div>
             <Spacer />
             <Button color="secondary" type="submit">
               {content.inputs.submit}
             </Button>
           </form>
           <Divider />
-          <GoogleButton />
-          <Divider />
           <div className="flex flex-col items-center gap-2 text-center">
-            <p className="text-muted text-center text-sm">
-              {content.dontHaveAccount}
-            </p>
-            <LocaleLink to="/register">{content.register}</LocaleLink>
+            <LocaleLink to="/register">{content.back}</LocaleLink>
           </div>
         </CardBody>
       </Card>

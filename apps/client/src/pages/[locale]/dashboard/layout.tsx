@@ -21,10 +21,9 @@ export interface SidebarItem {
 }
 
 export default function DashboardLayout() {
-  const { isAuthenticated } = useAuth();
+  const { isAuthenticated, isLoading } = useAuth();
 
-  console.log("isAuthenticated:", isAuthenticated);
-  if (!isAuthenticated) {
+  if (!isAuthenticated && !isLoading) {
     return <Navigate replace to="/" />;
   }
 
@@ -32,7 +31,7 @@ export default function DashboardLayout() {
     <div className="flex h-screen overflow-hidden">
       <Sidebar />
       <div className="h-screen flex-1 overflow-auto">
-        <Navbar maxWidth="full" position="sticky">
+        <Navbar className="bg-content1" maxWidth="full">
           <NavbarContent>
             <SidebarToggler />
             <Breadcrumbs>

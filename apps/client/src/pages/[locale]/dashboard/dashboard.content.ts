@@ -3,6 +3,10 @@ import { type Dictionary, t } from "intlayer";
 export default {
   content: {
     items: {
+      account: t({
+        en: "Account",
+        tr: "Hesap",
+      }),
       dashboard: t({
         en: "Dashboard",
         tr: "Kontrol Paneli",

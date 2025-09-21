@@ -1,5 +1,3 @@
-import type { Post } from "~/types";
-
 import {
   Card,
   CardBody,
@@ -11,12 +9,16 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { useIntlayer } from "react-intlayer";
 import { useLoaderData } from "react-router";
 
+import type { Post } from "~/types";
+
 import Header from "~/components/header";
 import LocaleLink from "~/components/locale-link";
 import { api } from "~/lib/api";
 
 export const clientLoader = async () => {
-  const { data: posts } = await api.get<Post[]>("/posts");
+  const { data: posts } = await api.get<Post[]>("/posts", {
+    params: { authorId: localStorage.getItem("userId") },
+  });
 
   return {
     posts,
