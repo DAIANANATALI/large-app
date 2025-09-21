@@ -9,7 +9,6 @@ const content = import.meta.glob("./*.md", {
 });
 
 export default function Page({ params }: Route.ComponentProps) {
-  console.log(params);
   const localeContent = content[`./${params.locale}.md`];
 
   return (

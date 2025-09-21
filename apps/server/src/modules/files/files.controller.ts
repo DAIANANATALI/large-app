@@ -22,7 +22,6 @@ export class FilesController {
   async upload(@UploadedFiles() files: Express.Multer.File[]) {
     const uploadResults = await Promise.all(
       files.map((file) => {
-        console.log(file);
         return this.s3Service.uploadFile(
           file.originalname,
           file.buffer,
